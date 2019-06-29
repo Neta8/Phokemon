@@ -1,12 +1,13 @@
 from Constants import *
-from Models import *
+from Models.Battle import *
+from Models.Pokemon import *
 
 pokemon1 = Pokemon("Bulbasaur", 100, "grass", "poison")
-pokemon2 = Pokemon("Charmander", 100, "fire", None)
+pokemon2 = Pokemon("Garchomp", 78, "dragon", "ground")
 pokemon1.current_hp = 45
-pokemon2.current_hp = 39
+pokemon2.current_hp = 289
 
-pokemon1.stats = {
+pokemon1.baseStats = {
     HP: 45,
     ATK: 49,
     DEF: 49,
@@ -14,14 +15,50 @@ pokemon1.stats = {
     SPDEF: 65,
     SPEED: 45
 }
-pokemon2.stats = {
-    HP: 39,
-    ATK: 52,
-    DEF: 43,
-    SPATK: 80,
-    SPDEF: 65,
-    SPEED: 65
+pokemon1.ev = {
+    HP: 0,
+    ATK: 0,
+    DEF: 0,
+    SPATK: 0,
+    SPDEF: 0,
+    SPEED: 0
 }
+pokemon1.iv = {
+    HP: 21,
+    ATK: 21,
+    DEF: 21,
+    SPATK: 21,
+    SPDEF: 21,
+    SPEED: 21
+}
+pokemon1.compute_stats()
+print(pokemon1.stats)
+pokemon2.baseStats = {
+    HP: 108,
+    ATK: 130,
+    DEF: 95,
+    SPATK: 80,
+    SPDEF: 85,
+    SPEED: 102
+}
+pokemon2.ev = {
+    HP: 74,
+    ATK: 190,
+    DEF: 91,
+    SPATK: 48,
+    SPDEF: 84,
+    SPEED: 23
+}
+pokemon2.iv = {
+    HP: 24,
+    ATK: 12,
+    DEF: 30,
+    SPATK: 16,
+    SPDEF: 23,
+    SPEED: 5
+}
+pokemon2.compute_stats()
+print(pokemon2.stats)
 
 pokemon1.attacks = [Attack("SCRATCH", "normal", PHYSICAL, 10, 10, 100)]
 pokemon2.attacks = [Attack("SCRATCH", "normal", PHYSICAL, 10, 10, 100)]
