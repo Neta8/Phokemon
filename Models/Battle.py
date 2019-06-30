@@ -1,4 +1,5 @@
 from Constants import *
+import random
 
 
 class Battle:
@@ -31,8 +32,8 @@ class Battle:
         if DO_ATTACK in command2.action.keys():
             attack2 = self.pokemon2.attacks[command2.action[DO_ATTACK]]
 
-        self.pokemon2.current_hp -= attack1.power
-        self.pokemon1.current_hp -= attack2.power
+        self.pokemon2.current_hp -= self.compute_damage(attack1, self.pokemon1, self.pokemon2)
+        self.pokemon1.current_hp -= self.compute_damage(attack2, self.pokemon2, self.pokemon1)
 
         self.actual_turn += 1
 
@@ -41,10 +42,34 @@ class Battle:
         print(self.pokemon2.name+" has "+str(self.pokemon2.current_hp)+" left!")
 
     def compute_damage(self, attack, pokemon1, pokemon2):
-        pass
+        aux =((2*pokemon1.level)/5)+2
+        power_factor = aux*attack.power
+        if attack.category == PHYSICAL:
+            print("Physical")
+            power_factor *= (pokemon1.stats[ATK]/pokemon2.stats[DEF])
+        else:
+            power_factor *= (pokemon1.stats[SPATK]/pokemon2.stats[SPDEF])
+        damage_without_modifiers = power_factor/50
+        final_damage = damage_without_modifiers * self.compute_damage_modifier(attack, self.pokemon1, self.pokemon2)
+        print(final_damage)
+        return final_damage
 
-    def compute_damage_modifier(self):
-        pass
+    def compute_damage_modifier(self, attack, pokemon1, pokemon2):
+        stab = 1
+        if attack.type == pokemon1.type1 or attack.type == pokemon1.type2:
+            print("Has STAB")
+            stab = 1.5
+
+        effectiveness1 = TYPE_CHART[pokemon2.type1][attack.type]
+        effectiveness2 = TYPE_CHART[pokemon2.type2][attack.type]
+        effectiveness_final = effectiveness1 * effectiveness2
+        print(effectiveness1, effectiveness2)
+
+        critical = 1
+        if random.random() <= 0.1:
+            critical = 1.5
+            print(pokemon1.name + " did a critical attack!")
+        return stab * effectiveness_final * critical
 
 
 class Turn:

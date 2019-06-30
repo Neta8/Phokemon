@@ -2,8 +2,8 @@ from Constants import *
 from Models.Battle import *
 from Models.Pokemon import *
 
-pokemon1 = Pokemon("Bulbasaur", 100, "grass", "poison")
-pokemon2 = Pokemon("Garchomp", 78, "dragon", "ground")
+pokemon1 = Pokemon("Bulbasaur", 100, 11, 3)
+pokemon2 = Pokemon("Garchomp", 78, 15, 4)
 pokemon1.current_hp = 45
 pokemon2.current_hp = 289
 
@@ -60,8 +60,8 @@ pokemon2.iv = {
 pokemon2.compute_stats()
 print(pokemon2.stats)
 
-pokemon1.attacks = [Attack("SCRATCH", "normal", PHYSICAL, 10, 10, 100)]
-pokemon2.attacks = [Attack("SCRATCH", "normal", PHYSICAL, 10, 10, 100)]
+pokemon1.attacks = [Attack("TAIL WHIP", 11, PHYSICAL, 10, 10, 100)]
+pokemon2.attacks = [Attack("SCRATCH", 0, PHYSICAL, 10, 10, 100)]
 
 battle = Battle(pokemon1, pokemon2)
 
